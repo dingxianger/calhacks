@@ -19,31 +19,16 @@ export const recordOutput = mutation({
     
     args: { output: v.string() },
     handler: async (ctx, {output}) => {
-    const lines = output.split("\n");
-    var name = "";
-    var calories = "";
-    var price = "";
-    var description = "";
-    var k;
-    for(var i = 0; i < lines.length - 1; i ++) {
-      if (lines[i].indexOf("Name: ") != -1) {
-        k = lines[i].indexOf("Name: ");
-        name = lines[i].substring(6 + k, lines[i].length);
-      }
-      if (lines[i].indexOf("Calories: ") != -1) {
-        k = lines[i].indexOf("Calories: ");
-        name = lines[i].substring(10 + k, lines[i].length);
-      }
-      if (lines[i].indexOf("Price: ") != -1) {
-        k = lines[i].indexOf("Price: ");
-        name = lines[i].substring(7 + k, lines[i].length);
-      }
-      if (lines[i].indexOf("Description: ") != -1) {
-        k = lines[i].indexOf("Description: ");
-        name = lines[i].substring(13 + k, lines[i].length);
-      }
-    }
-    await ctx.db.insert("output01", {name, calories, price, description});
+      const lines = output.split("\n");
+      var i = lines[2].indexOf("Name: ");
+      const name = lines[2].substring(6 + i, lines[2].length);
+      i = lines[3].indexOf("Calories: ");
+      const calories = lines[3].substring(10 + i, lines[3].length);
+      i = lines[4].indexOf("Price: ");
+      const price = lines[4].substring(7 + i, lines[4].length);
+      i = lines[5].indexOf("Description: ");
+      const description = lines[5].substring(13 + i, lines[5].length);
+      await ctx.db.insert("output01", {name, calories, price, description});
 
     //   await ctx.db.insert("input01", {dietaryRestriction, calories, price});
     //   const message = "What I don't eat: " + dietaryRestriction + ", and my budget is "

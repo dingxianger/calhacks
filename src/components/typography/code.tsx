@@ -1,4 +1,4 @@
-import { se } from "@/lib/utils";
+import { se } from "../../../@/lib/utils";
 
 export const Code = se<HTMLElement>(
   "code",
